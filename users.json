@@ -1,0 +1,20 @@
+[
+  {
+    "name": "admin",
+    "groups": ["Administrators", "Users"],
+    "email": "admin@example.com",
+    "common_name": "Administrator",
+    "surname": "Administrator",
+    "given_name": "Administrator",
+    "password": "secret"
+  },
+  {
+    "name": "bob",
+    "groups": ["Users"],
+    "email": "bob@example.com",
+    "common_name": "Bob Smith",
+    "surname": "Smith",
+    "given_name": "Bob",
+    "hashed_password": "JDJiJDEwJEtOSFJSTTBEeG1VSHNaQzhMMlovbi5UaHZlY2w5VEdaSzYxN2FDTFZNeFJscUN6TWNzcnhPCg=="
+  }
+]
