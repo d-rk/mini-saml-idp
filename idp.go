@@ -6,6 +6,11 @@ import (
 	"encoding/json"
 	"encoding/pem"
 	"flag"
+	"fmt"
+	"github.com/crewjam/saml/logger"
+	"github.com/crewjam/saml/samlidp"
+	"github.com/pkg/errors"
+	"github.com/zenazn/goji"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"log"
@@ -13,10 +18,6 @@ import (
 	"net/url"
 	"os"
 	"time"
-
-	"github.com/crewjam/saml/logger"
-	"github.com/crewjam/saml/samlidp"
-	"github.com/zenazn/goji"
 )
 
 var key = func() crypto.PrivateKey {
@@ -130,7 +131,7 @@ func main() {
 	}
 
 	addUsers(userJsonFilename, idpServer, logr)
-	addService(idpBaseURL, serviceURL, logr)
+	addService(idpServer, idpBaseURL, serviceURL, logr)
 
 	flag.Set("bind", ":"+idpBaseURL.Port())
 
@@ -138,39 +139,59 @@ func main() {
 	goji.Serve()
 }
 
-func addService(idpBaseURL *url.URL, serviceURL *url.URL, logr *log.Logger) {
+func addService(idpServer *samlidp.Server, idpBaseURL *url.URL, serviceURL *url.URL, logr *log.Logger) {
 	if serviceURL != nil {
-		go func() {
-			time.Sleep(1 * time.Second)
 
+		serviceName := "sample-service"
+
+		queryMetaData := func() error {
 			// read saml metadata from url
 			samlResp, err := http.Get(serviceURL.String())
 			if err != nil {
-				logr.Fatalf("get saml metadata: %s", err)
+				return err
 			}
 
 			if samlResp.StatusCode != http.StatusOK {
 				data, _ := ioutil.ReadAll(samlResp.Body)
-				logr.Fatalf("status not ok: %d: %s", samlResp.StatusCode, data)
+				return errors.Errorf("status not ok: %d: %s", samlResp.StatusCode, data)
 			}
 
-			req, err := http.NewRequest("PUT", idpBaseURL.String()+"/services/service1", samlResp.Body)
+			req, err := http.NewRequest("PUT", fmt.Sprintf("%s/services/%s", idpBaseURL, serviceName), samlResp.Body)
 			if err != nil {
-				logr.Fatalf("new request: %s", err)
+				return err
 			}
 
-			// post to self because memorystore only works for users
 			resp, err := http.DefaultClient.Do(req)
 			if err != nil {
-				logr.Fatalf("send request: %s", err)
+				return err
 			}
 
 			if resp.StatusCode != http.StatusNoContent {
 				data, _ := ioutil.ReadAll(resp.Body)
-				logr.Fatalf("status not ok: %d: %s", resp.StatusCode, data)
+				return errors.Errorf("status not ok: %d: %s", resp.StatusCode, data)
 			}
 
-			_ = resp.Body.Close()
+			return resp.Body.Close()
+		}
+
+		go func() {
+			var err error
+			delay := 1 * time.Second
+
+			for {
+				time.Sleep(delay)
+				err = queryMetaData()
+
+				if err != nil {
+					logr.Printf("get saml metadata from service failed: %v", err)
+					delay = delay * 2
+				} else {
+					service := samlidp.Service{}
+					_ = idpServer.Store.Get(fmt.Sprintf("/services/%s", serviceName), &service)
+					logr.Printf("registered service: name=%s entityId=%s", serviceName, service.Metadata.EntityID)
+					break
+				}
+			}
 		}()
 	}
 }
