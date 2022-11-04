@@ -6,10 +6,14 @@ github.com/d-rk/saml v0.0.0-20220728135604-cf9f8e8b6947 h1:TZcCIw9J40P5KnyHsQz09
 github.com/d-rk/saml v0.0.0-20220728135604-cf9f8e8b6947/go.mod h1:9Zh6dWPtB3MSzTRt8fIFH60Z351QQ+s7hCU3J/tTlA4=
 github.com/d-rk/saml v0.0.0-20221104062751-61c99c350b8e h1:kxwbjZR+p9eD+V3BJoEi4URQEYWi/IFL37smG8qsveA=
 github.com/d-rk/saml v0.0.0-20221104062751-61c99c350b8e/go.mod h1:9Zh6dWPtB3MSzTRt8fIFH60Z351QQ+s7hCU3J/tTlA4=
+github.com/d-rk/saml v0.0.0-20221104073316-3a5a0261b037 h1:FAr9fpu3xwmDYKxfzO4TKBKFeYbdwmdxg4fYSARJ4/I=
+github.com/d-rk/saml v0.0.0-20221104073316-3a5a0261b037/go.mod h1:9Zh6dWPtB3MSzTRt8fIFH60Z351QQ+s7hCU3J/tTlA4=
 github.com/d-rk/saml/samlidp v0.0.0-20220728135604-cf9f8e8b6947 h1:rWEvMePMNIa78dYxaVlS2rEQ1FG7AtbSftZ1szoh10E=
 github.com/d-rk/saml/samlidp v0.0.0-20220728135604-cf9f8e8b6947/go.mod h1:ToeiAGYJK2VuiGw0BJpoiZqaY3GootbPOVPaNVL+A3M=
 github.com/d-rk/saml/samlidp v0.0.0-20221104062751-61c99c350b8e h1:FSMEP5D7LE1sH2Pk5tzpH2QfAs5a1e4nH00JEIN+9OU=
 github.com/d-rk/saml/samlidp v0.0.0-20221104062751-61c99c350b8e/go.mod h1:ToeiAGYJK2VuiGw0BJpoiZqaY3GootbPOVPaNVL+A3M=
+github.com/d-rk/saml/samlidp v0.0.0-20221104073316-3a5a0261b037 h1:5I3lG/NNhB4qKCI8OUlBgwIO9FdwWAr+5uQyFLrwRgg=
+github.com/d-rk/saml/samlidp v0.0.0-20221104073316-3a5a0261b037/go.mod h1:ToeiAGYJK2VuiGw0BJpoiZqaY3GootbPOVPaNVL+A3M=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
