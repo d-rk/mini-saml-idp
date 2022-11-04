@@ -23,6 +23,13 @@ If you do not mount a `users.json` the default one is used.
 
 # build
 
+```shell
+make build
 ```
-docker build -t mini-saml-idp:latest .
+
+# build multi-arch docker image
+
+```shell
+docker login quay.io
+make publish
 ```

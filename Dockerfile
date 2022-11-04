@@ -1,4 +1,4 @@
-FROM golang:1.18.0-alpine3.15 AS builder
+FROM golang:1.18.0-alpine as builder
 
 WORKDIR /go/src/mini-saml-idp
 COPY . .
@@ -18,17 +18,3 @@ ENV USER_JSON /data/users.json
 COPY users.json /data/users.json
 
 CMD ["mini-saml-idp"]
-#
-#
-#FROM scratch
-#ENV IDP_BASE_URL http://localhost:9009
-#ENV SERVICE_METADATA_URL http://localhost:8080/saml/metadata
-#ENV USER_JSON /data/users.json
-#
-#CMD mkdir /app
-#WORKDIR /app
-#
-#COPY samlidp /app
-#COPY users.json /app/data
-#
-#ENTRYPOINT ["/app/samlidp"]

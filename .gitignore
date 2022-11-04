@@ -16,3 +16,5 @@
 /mini-saml-idp
 *.iml
 .idea
+
+/test-users.json
