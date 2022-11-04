@@ -120,11 +120,12 @@ func main() {
 	}
 
 	idpServer, err := samlidp.New(samlidp.Options{
-		URL:         *idpBaseURL,
-		Key:         key,
-		Logger:      logr,
-		Certificate: cert,
-		Store:       &samlidp.MemoryStore{},
+		URL:                *idpBaseURL,
+		Key:                key,
+		Logger:             logr,
+		Certificate:        cert,
+		Store:              &samlidp.MemoryStore{},
+		UseNameFormatBasic: true,
 	})
 	if err != nil {
 		logr.Fatalf("create idp: %s", err)
