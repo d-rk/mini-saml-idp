@@ -21,7 +21,9 @@ Run using docker-compose:
 
 If you do not mount a `users.json` the default one is used.
 
-# build
+# docker build
+
+first enable
 
 ```shell
 make build

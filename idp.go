@@ -104,6 +104,7 @@ func main() {
 	userJsonFilename := os.Getenv("USER_JSON")
 	idpBaseUrlString := os.Getenv("IDP_BASE_URL")
 	serviceURLstr := os.Getenv("SERVICE_METADATA_URL")
+	loginPageTemplateFile := os.Getenv("LOGIN_PAGE_TEMPLATE")
 
 	if len(userJsonFilename) == 0 {
 		userJsonFilename = "users.json"
@@ -119,6 +120,8 @@ func main() {
 		logr.Fatalf("cannot parse service URL: %v", err)
 	}
 
+	loginPage := readLoginPageTemplate(loginPageTemplateFile, logr)
+
 	idpServer, err := samlidp.New(samlidp.Options{
 		URL:                *idpBaseURL,
 		Key:                key,
@@ -126,6 +129,7 @@ func main() {
 		Certificate:        cert,
 		Store:              &samlidp.MemoryStore{},
 		UseNameFormatBasic: true,
+		LoginFormTemplate:  loginPage,
 	})
 	if err != nil {
 		logr.Fatalf("create idp: %s", err)
@@ -225,4 +229,18 @@ func addUsers(filename string, idpServer *samlidp.Server, logr *log.Logger) {
 		}
 		logr.Printf("created user %s", user.Name)
 	}
+}
+
+func readLoginPageTemplate(filename string, logr *log.Logger) string {
+
+	if filename == "" {
+		return ""
+	}
+
+	bytes, err := os.ReadFile(filename)
+	if err != nil {
+		logr.Fatalf("open %s: %s", filename, err)
+	}
+
+	return string(bytes)
 }

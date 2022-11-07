@@ -1,8 +1,8 @@
 module github.com/d-rk/mini-saml-idp
 
 // to see the generated version of a commit run: go get github.com/d-rk/saml/samlidp@61c99c350b8e
-replace github.com/crewjam/saml => github.com/d-rk/saml v0.0.0-20221104073316-3a5a0261b037
-replace github.com/crewjam/saml/samlidp => github.com/d-rk/saml/samlidp v0.0.0-20221104073316-3a5a0261b037
+replace github.com/crewjam/saml => github.com/d-rk/saml v0.0.0-20221107072552-9683ee7f8450
+replace github.com/crewjam/saml/samlidp => github.com/d-rk/saml/samlidp v0.0.0-20221107072552-9683ee7f8450
 
 // for local development
 // replace github.com/crewjam/saml => ../saml

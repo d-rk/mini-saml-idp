@@ -17,4 +17,5 @@
 *.iml
 .idea
 
-/test-users.json
+/*.html
+/*.json
